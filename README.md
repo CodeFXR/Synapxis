@@ -3,5 +3,5 @@
   <img width="560" height="560" alt="synapxis_icon" src="https://github.com/user-attachments/assets/b7309ed8-cd15-4129-b28f-5354c2ee4e58" />
 </p>
 <p align="center">
-Graph View Terminal User Interface with jrnl integration.<br>
+Graph view terminal user interface with jrnl integration.<br>
 </p>
