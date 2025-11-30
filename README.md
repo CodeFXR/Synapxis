@@ -1,5 +1,5 @@
 <p align="center">
-  <span style="font-size:100px;"></b>Synapxis</b></span>
+  <span style="font-size:100px;"><b>Synapxis</b></span>
 </p>
   <hr>
   <p align="center">
