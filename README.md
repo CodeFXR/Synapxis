@@ -1,5 +1,6 @@
 <p align="center">
   <span style="font-size:100px;"></b>Synapxis</b></span>
+</p>
   <hr>
   <p align="center">
   <img width="460" height="460" alt="synapxis_icon" src="https://github.com/user-attachments/assets/b7309ed8-cd15-4129-b28f-5354c2ee4e58" />
