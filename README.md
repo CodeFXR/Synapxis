@@ -6,3 +6,6 @@
 <p align="center">
 Graph view interface with jrnl integration.<br>
 </p>
+<p align="center">
+  &copy; CodeFXR. All rights reserved.
+</p>
