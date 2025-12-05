@@ -4,7 +4,7 @@
     alt="synapxis_icon" width="150" />
 </p>
 <p align="center">
-Graph view interface with jrnl integration.<br>
+Map your Mind!<br>
 </p>
 
 ##
