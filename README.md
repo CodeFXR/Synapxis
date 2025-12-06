@@ -39,19 +39,6 @@
   <strong>Wikilinks</strong><br>
   Link notes using standard <code>[[Link]]</code> syntax.
 </p>
-
-<br>
-
-<h2 align="center">Installation</h2>
-
-<p align="center">
-  Copy and paste this into your terminal:
-</p>
-
-<div align="center">
-
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/CodeFXR/Synapxis/refs/heads/Synapxis/install.sh)"
 </div>
 <br>
 <h2 align="center">Requirements</h2>
