@@ -32,7 +32,7 @@
 
 <p align="center">
   <strong>Interactive</strong><br>
-  Drag nodes to rearrange your mind map (positions are saved!).
+  Drag nodes to rearrange your map.
 </p>
 
 <p align="center">
