@@ -21,8 +21,13 @@
 </p>
 
 <p align="center">
-  <strong>Neural Graph</strong><br>
-  Auto-clusters related notes by color.
+  <strong>Smart Autocomplete</strong><br>
+  Type <code>[[</code> to trigger a popup menu and instantly link notes.
+</p>
+
+<p align="center">
+  <strong>Dynamic Tagging</strong><br>
+  Organize with <code>#tags</code> and customize graph colors in Settings.
 </p>
 
 <p align="center">
@@ -31,15 +36,29 @@
 </p>
 
 <p align="center">
-  <strong>Interactive</strong><br>
-  Drag nodes to rearrange your map.
+  <strong>Export Studio</strong><br>
+  Convert your notes to Markdown, HTML, or PDF.
 </p>
 
 <p align="center">
-  <strong>Wikilinks</strong><br>
-  Link notes using standard <code>[[Link]]</code> syntax.
+  <strong>Interactive</strong><br>
+  Drag nodes to rearrange your map, pan, and zoom.
 </p>
 </div>
+<br>
+
+<h2 align="center">Installation</h2>
+<p align="center">
+Synapxis comes with a universal installer for Linux and macOS.
+</p>
+
+<pre>
+git clone https://github.com/CodeFXR/Synapxis.git
+cd Synapxis
+chmod +x install.sh
+./install.sh
+</pre>
+
 <br>
 <h2 align="center">Requirements</h2>
 <p align="center">
