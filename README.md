@@ -49,14 +49,12 @@
 
 <h2 align="center">Installation</h2>
 <p align="center">
-Synapxis comes with a universal installer for Linux and macOS.
+Synapxis comes with a universal installer for Linux and macOS.<br>
+Copy and paste this one-liner into your terminal:
 </p>
 
-<pre>
-git clone https://github.com/CodeFXR/Synapxis.git
-cd Synapxis
-chmod +x install.sh
-./install.sh
+<pre align="center">
+curl -sL https://raw.githubusercontent.com/CodeFXR/Synapxis/main/install | bash
 </pre>
 
 <br>
