@@ -54,7 +54,7 @@ Copy and paste this one-liner into your terminal:
 </p>
 
 <pre align="center">
-curl -sL https://raw.githubusercontent.com/CodeFXR/Synapxis/main/install | bash
+curl -fsSL https://snx.codefxr.com/install | bash
 </pre>
 
 <br>
