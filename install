@@ -95,12 +95,14 @@ echo ""
 
 # --- 4. Rust Compilation (Optional) ---
 echo -e "${BOLD}:: Graphics Engine Setup...${NC}"
-set +e
+set +e 
 
 if command -v cargo &> /dev/null; then
     echo -n "   [>] Rust detected. Compiling HD Engine..."
-    if [ -d "synapxis_rs" ]; then
-        cd synapxis_rs
+    
+    # UPDATED: Checking for 'rust_core' folder
+    if [ -d "rust_core" ]; then
+        cd rust_core
         if maturin develop --release > ../build.log 2>&1; then
             echo -e " Success"
             cargo clean > /dev/null 2>&1
@@ -109,7 +111,7 @@ if command -v cargo &> /dev/null; then
         fi
         cd ..
     else
-        echo -e " Skipped"
+        echo -e " Skipped (Source folder not found)"
     fi
 else
     echo -e "   [!] Rust not found. Using Standard Mode."
@@ -123,8 +125,8 @@ echo -e "${BOLD}:: Finalizing...${NC}"
 SHELL_CONFIG=""
 case "$SHELL" in
   */zsh)  SHELL_CONFIG="$HOME/.zshrc" ;;
-  */bash)
-    if [ -f "$HOME/.bash_profile" ]; then SHELL_CONFIG="$HOME/.bash_profile"; else SHELL_CONFIG="$HOME/.bashrc"; fi
+  */bash) 
+    if [ -f "$HOME/.bash_profile" ]; then SHELL_CONFIG="$HOME/.bash_profile"; else SHELL_CONFIG="$HOME/.bashrc"; fi 
     ;;
   */fish) SHELL_CONFIG="$HOME/.config/fish/config.fish" ;;
   *)      SHELL_CONFIG="$HOME/.profile" ;;
