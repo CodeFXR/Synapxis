@@ -24,7 +24,7 @@
 <br>
 
 <p align="center">
-  <img width="1366" height="724" alt="main_demo" src="https://github.com/user-attachments/assets/8335afc7-55e1-43ea-8ceb-f6d12d4b744d" />
+  <img width="600" height="600" alt="main_demo" src="https://github.com/user-attachments/assets/8335afc7-55e1-43ea-8ceb-f6d12d4b744d" />
 </p>
 
 <br>
@@ -45,31 +45,3 @@ Get started in seconds with the universal installer for Linux and macOS.
 
 ```bash
 curl -fsSL https://snx.codefxr.com/install | bash
-
-Note: Requires Python 3.8+. If you want the HD Graphics engine, ensure Rust is installed (curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh).
-
-Controls
-Context	Shortcut	Action
-Global	Alt + N	Create New Note
-	Alt + G	Switch to Graph View
-Editing	[[	Autocomplete Link
-	Alt + E	Export (PDF/HTML/MD)
-Graph	Mouse Drag	Pan Camera / Move Nodes
-	Scroll	Zoom In / Out
-	F	Find Node
-Architecture
-
-Synapxis is built on a modern TUI stack:
-
-Frontend: Textual (Python) for reactive TUI components.
-
-Backend: Maturin + Rust for heavy graph algorithms.
-
-Storage: SQLite (Async) for instant retrieval of notes and links.
-
-<br>
-
-<p align="center">
-&copy; CodeFXR. All rights reserved.
-</p>
-```
