@@ -47,20 +47,24 @@ Get started in seconds with the universal installer for Linux and macOS.
 curl -fsSL https://snx.codefxr.com/install | bash
 ```
 ## Controls
-Context	Shortcut	Action
-Global	Alt + N	Create New Note
-Alt + G	Switch to Graph View
-Editing	[[	Autocomplete Link
-Alt + E	Export (PDF/HTML/MD)
-Graph	Mouse Drag	Pan Camera / Move Nodes
-Scroll	Zoom In / Out
-F	Find Node
+
+| Context | Shortcut | Action |
+| :--- | :--- | :--- |
+| **Global** | `Alt + N` | Create New Note |
+| | `Alt + G` | Switch to Graph View |
+| **Editing** | `[[` | **Autocomplete Link** |
+| | `Alt + E` | Export (PDF/HTML/MD) |
+| **Graph** | `Mouse Drag` | Pan Camera / Move Nodes |
+| | `Scroll` | Zoom In / Out |
+| | `F` | Find Node |
+
 ## Architecture
+
 Synapxis is built on a modern TUI stack:
-Frontend: Textual (Python) for reactive TUI components.
-Backend: Maturin + Rust for heavy graph algorithms.
-Storage: SQLite (Async) for instant retrieval of notes and links.
-<br>
+
+- **Frontend:** Textual (Python) for reactive TUI components.
+- **Backend:** Maturin + Rust for heavy graph algorithms.
+- **Storage:** SQLite (Async) for instant retrieval of notes and links.
 <p align="center">
 &copy; CodeFXR. All rights reserved.
 </p>
