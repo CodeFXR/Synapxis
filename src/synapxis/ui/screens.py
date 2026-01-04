@@ -366,7 +366,7 @@ class NoteViewScreen(Screen):
         width: 100%; height: auto; padding-top: 1; padding-bottom: 1;
         align: center middle; background: #1f2335;
     }
-    #sidebar-icon { height: 3; width: auto; }
+    #sidebar-icon { height: 2; width: auto; }
     #sidebar-label { color: orange; text-style: bold; }
 
     #search {
@@ -425,13 +425,13 @@ class NoteViewScreen(Screen):
     def compose(self) -> ComposeResult:
         with Container(id="main-layout"):
             with Vertical(id="sidebar"):
-                img_paths = [Path("synapxis_icon.png"), Path("assets/synapxis_icon.png")]
+                img_paths = [Path("n_v.png"), Path("assets/n_v.png")]
                 found_img = next((p for p in img_paths if p.exists()), None)
                 with Vertical(id="sidebar-header-container"):
                     if HAS_IMAGE_LIB and found_img:
                         yield Image(str(found_img), id="sidebar-icon")
                     else:
-                        yield Label("SYNAPXIS", id="sidebar-label")
+                        yield Label("Note View", id="sidebar-label")
                 yield Input(placeholder="⌕", id="search")
                 yield ListView(id="note-list")
                 yield Button("+ New Page", id="btn-new", variant="default")
@@ -711,12 +711,12 @@ class GraphViewScreen(Screen):
 
     def compose(self) -> ComposeResult:
         with Vertical(id="graph-header"):
-            img_paths = [Path("synapxis_icon.png"), Path("assets/synapxis_icon.png")]
+            img_paths = [Path("g_v.png"), Path("assets/g_v.png")]
             found_img = next((p for p in img_paths if p.exists()), None)
             if HAS_IMAGE_LIB and found_img:
                 yield Image(str(found_img), id="header-logo")
             else:
-                yield Label("SYNAPXIS", id="header-label")
+                yield Label("Graph View", id="header-label")
 
         yield GraphWidget(self.gm, self.store)
         yield Static("", id="graph-info")
