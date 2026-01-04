@@ -4,7 +4,7 @@
   <h1>Synapxis</h1>
 
   <p>
-    <strong>The Terminal-Based Zettelkasten for High-Performance Thought.</strong>
+    <strong>A Terminal-based Knowledge Graph with Rust-powered visualization.</strong>
   </p>
 
   <p>
@@ -45,3 +45,22 @@ Get started in seconds with the universal installer for Linux and macOS.
 
 ```bash
 curl -fsSL https://snx.codefxr.com/install | bash
+```
+## Controls
+Context	Shortcut	Action
+Global	Alt + N	Create New Note
+Alt + G	Switch to Graph View
+Editing	[[	Autocomplete Link
+Alt + E	Export (PDF/HTML/MD)
+Graph	Mouse Drag	Pan Camera / Move Nodes
+Scroll	Zoom In / Out
+F	Find Node
+## Architecture
+Synapxis is built on a modern TUI stack:
+Frontend: Textual (Python) for reactive TUI components.
+Backend: Maturin + Rust for heavy graph algorithms.
+Storage: SQLite (Async) for instant retrieval of notes and links.
+<br>
+<p align="center">
+&copy; CodeFXR. All rights reserved.
+</p>
