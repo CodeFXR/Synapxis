@@ -115,18 +115,28 @@ echo -e "${BOLD}:: Graphics Engine Setup...${NC}"
 set +e 
 if command -v cargo &> /dev/null; then
     echo -n "    [>] Rust detected. Compiling HD Engine..."
-    # Check for 'rust_core' folder
     if [ -d "rust_core" ]; then
         cd rust_core
         if maturin develop --release > ../build.log 2>&1; then
-            echo -e " Success"
-            cargo clean > /dev/null 2>&1
+            
+            cd ..
+            
+            SITE_PACKAGES=$(python3 -c "import site; print(site.getsitepackages()[0])")
+            
+            if cp "$SITE_PACKAGES"/synapxis/synapxis*.so src/synapxis/ 2>/dev/null; then
+                echo -e " Success (Installed & Linked)"
+            elif cp "$SITE_PACKAGES"/synapxis/synapxis*.dylib src/synapxis/synapxis.so 2>/dev/null; then
+                # Mac fallback case
+                echo -e " Success (Mac Linked)"
+            else
+                echo -e " Warning: Build success, but linking failed. Check $SITE_PACKAGES"
+            fi
+            
         else
             echo -e " Failed (Using Standard Mode)"
         fi
-        cd ..
     else
-        echo -e " Skipped (Source not found)"
+        echo -e " Skipped (rust_core folder not found)"
     fi
 else
     echo -e "    [!] Rust not found. Using Standard Mode."
@@ -147,7 +157,7 @@ case "$SHELL" in
 esac
 
 if [ -f "$SHELL_CONFIG" ]; then
-    # 1. Clean old aliases
+    # Universal Sed fix
     if [[ "$OSTYPE" == "darwin"* ]]; then
         sed -i '' '/alias synapxis=/d' "$SHELL_CONFIG"
         sed -i '' '/alias snx=/d' "$SHELL_CONFIG"
@@ -156,6 +166,7 @@ if [ -f "$SHELL_CONFIG" ]; then
         sed -i '/alias snx=/d' "$SHELL_CONFIG"
     fi
 
+    # Point PYTHONPATH to the src directory so imports work
     CMD_STR="cd $INSTALL_DIR && export PYTHONPATH=\$PYTHONPATH:$INSTALL_DIR/src && $INSTALL_DIR/.venv/bin/python $INSTALL_DIR/$ENTRY_POINT"
     
     echo "alias synapxis=\"$CMD_STR\"" >> "$SHELL_CONFIG"
