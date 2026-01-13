@@ -22,7 +22,7 @@ set -e
 # --- Configuration ---
 REPO_URL="https://github.com/CodeFXR/Synapxis.git"
 INSTALL_DIR="$HOME/.synapxis"
-ENTRY_POINT="main.py"
+ENTRY_POINT="src/synapxis/main.py"
 
 # --- Visual Styling ---
 ORANGE='\033[0;33m'
@@ -137,6 +137,32 @@ echo ""
 
 # --- 5. Shell Shortcuts ---
 echo -e "${BOLD}:: Finalizing...${NC}"
+
+# Define the full path for the alias
+ALPHANUM_PATH="$INSTALL_DIR/$ENTRY_POINT"
+
+case "$SHELL" in
+  */zsh)  SHELL_CONFIG="$HOME/.zshrc" ;;
+  */bash) 
+    if [ -f "$HOME/.bash_profile" ]; then SHELL_CONFIG="$HOME/.bash_profile"; else SHELL_CONFIG="$HOME/.bashrc"; fi 
+    ;;
+  */fish) SHELL_CONFIG="$HOME/.config/fish/config.fish" ;;
+  *)      SHELL_CONFIG="$HOME/.profile" ;;
+esac
+
+if [ -f "$SHELL_CONFIG" ]; then
+    # Remove old versions
+    sed -i '/alias synapxis=/d' "$SHELL_CONFIG"
+    sed -i '/alias snx=/d' "$SHELL_CONFIG"
+
+    # Add new alias with CD logic to ensure imports work
+    echo "alias synapxis=\"cd $INSTALL_DIR && $INSTALL_DIR/.venv/bin/python $ALPHANUM_PATH\"" >> "$SHELL_CONFIG"
+    echo "alias snx=\"cd $INSTALL_DIR && $INSTALL_DIR/.venv/bin/python $ALPHANUM_PATH\"" >> "$SHELL_CONFIG"
+    
+    echo -e "    [OK] Aliases added to ${ORANGE}$SHELL_CONFIG${NC}"
+else
+    echo -e "    [!] Shell config not found. Add alias manually."
+fi
 echo -e "${ORANGE}===================================================${NC}"
 echo -e "${BOLD}         SYNAPXIS IS UP TO DATE${NC}"
 echo -e "${ORANGE}===================================================${NC}"
