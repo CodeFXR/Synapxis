@@ -21,7 +21,7 @@ set -e
 # --- Configuration ---
 REPO_URL="https://github.com/CodeFXR/Synapxis.git"
 INSTALL_DIR="$HOME/.synapxis"
-ENTRY_POINT="src/synapxis/main.py"
+ENTRY_MODULE="synapxis.main"
 
 # --- Visual Styling ---
 ORANGE='\033[0;33m'
@@ -119,24 +119,24 @@ if command -v cargo &> /dev/null; then
         cd rust_core
         if maturin develop --release > ../build.log 2>&1; then
             
+            # Copy binary to source folder to be accessible
             cd ..
-            
             SITE_PACKAGES=$(python3 -c "import site; print(site.getsitepackages()[0])")
             
+            # Try copy Linux (.so) or Mac (.dylib)
             if cp "$SITE_PACKAGES"/synapxis/synapxis*.so src/synapxis/ 2>/dev/null; then
-                echo -e " Success (Installed & Linked)"
+                echo -e " Success (Linux Linked)"
             elif cp "$SITE_PACKAGES"/synapxis/synapxis*.dylib src/synapxis/synapxis.so 2>/dev/null; then
-                # Mac fallback case
                 echo -e " Success (Mac Linked)"
             else
-                echo -e " Warning: Build success, but linking failed. Check $SITE_PACKAGES"
+                echo -e " Warning: Build passed but linking failed."
             fi
             
         else
             echo -e " Failed (Using Standard Mode)"
         fi
     else
-        echo -e " Skipped (rust_core folder not found)"
+        echo -e " Skipped (Source not found)"
     fi
 else
     echo -e "    [!] Rust not found. Using Standard Mode."
@@ -157,7 +157,6 @@ case "$SHELL" in
 esac
 
 if [ -f "$SHELL_CONFIG" ]; then
-    # Universal Sed fix
     if [[ "$OSTYPE" == "darwin"* ]]; then
         sed -i '' '/alias synapxis=/d' "$SHELL_CONFIG"
         sed -i '' '/alias snx=/d' "$SHELL_CONFIG"
@@ -166,8 +165,7 @@ if [ -f "$SHELL_CONFIG" ]; then
         sed -i '/alias snx=/d' "$SHELL_CONFIG"
     fi
 
-    # Point PYTHONPATH to the src directory so imports work
-    CMD_STR="cd $INSTALL_DIR && export PYTHONPATH=\$PYTHONPATH:$INSTALL_DIR/src && $INSTALL_DIR/.venv/bin/python $INSTALL_DIR/$ENTRY_POINT"
+    CMD_STR="(cd $INSTALL_DIR && PYTHONPATH=src $INSTALL_DIR/.venv/bin/python -m $ENTRY_MODULE)"
     
     echo "alias synapxis=\"$CMD_STR\"" >> "$SHELL_CONFIG"
     echo "alias snx=\"$CMD_STR\"" >> "$SHELL_CONFIG"
@@ -178,7 +176,7 @@ else
 fi
 
 echo -e "${ORANGE}===================================================${NC}"
-echo -e "${BOLD}         SYNAPXIS IS READY${NC}"
+echo -e "${BOLD}               SYNAPXIS IS READY${NC}"
 echo -e "${ORANGE}===================================================${NC}"
 echo -e "1. Restart your terminal."
 echo -e "2. Launch with: ${BOLD}${ORANGE}snx${NC}"
