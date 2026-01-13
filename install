@@ -1,4 +1,22 @@
 #!/bin/bash
+
+# --- 0. Self-Update Logic ---
+if [ -d "$HOME/.synapxis/.git" ]; then
+    cd "$HOME/.synapxis"
+    # Fetch latest metadata
+    git fetch --quiet
+    
+    LOCAL=$(git rev-parse HEAD)
+    REMOTE=$(git rev-parse @{u})
+
+    if [ "$LOCAL" != "$REMOTE" ]; then
+        echo -e "\033[0;33m\033[1m:: Update Found! Syncing with GitHub...\033[0m"
+        git pull --quiet
+        echo ":: Update applied. Restarting script..."
+        exec "$0" "$@" # Re-runs the script with original arguments
+    fi
+fi
+
 set -e
 
 # --- Configuration ---
@@ -10,6 +28,11 @@ ENTRY_POINT="main.py"
 ORANGE='\033[0;33m'
 BOLD='\033[1m'
 NC='\033[0m'
+
+# Unknown Terminal Fix
+if ! infocmp "$TERM" >/dev/null 2>&1; then
+    export TERM=xterm-256color
+fi
 
 OS="$(uname -s)"
 case "${OS}" in
@@ -47,60 +70,55 @@ spinner() {
 # --- 1. Check Prerequisites ---
 echo -e "${BOLD}:: Checking System...${NC}"
 
+if ! python3 -m venv --help &> /dev/null; then
+    echo -e "    [!] Error: python3-venv is missing."
+    exit 1
+fi
+
 if ! command -v git &> /dev/null; then
-    echo -e "   [!] Error: Git is not installed."
+    echo -e "    [!] Error: Git is not installed."
     exit 1
 fi
 
-if ! command -v python3 &> /dev/null; then
-    echo -e "   [!] Error: Python 3 is not installed."
-    exit 1
-fi
-
-echo -e "   [OK] System tools ready."
+echo -e "    [OK] System tools ready."
 echo ""
 
 # --- 2. Download ---
-echo -e "${BOLD}:: Downloading Synapxis...${NC}"
-
-if [ -d "$INSTALL_DIR" ]; then
-    rm -rf "$INSTALL_DIR"
+# If the directory doesn't exist, clone it.
+if [ ! -d "$INSTALL_DIR" ]; then
+    echo -e "${BOLD}:: Downloading Synapxis...${NC}"
+    echo -n "    [>] Cloning repository..."
+    git clone --quiet --depth 1 "$REPO_URL" "$INSTALL_DIR" > /dev/null 2>&1 &
+    spinner $!
+    echo -e " Done"
 fi
-
-echo -n "   [>] Cloning repository..."
-git clone --quiet --depth 1 "$REPO_URL" "$INSTALL_DIR" > /dev/null 2>&1 &
-spinner $!
-echo -e " Done"
 
 cd "$INSTALL_DIR"
 
 # --- 3. Setup Virtual Env ---
-echo ""
-echo -e "${BOLD}:: Setting up Sandbox...${NC}"
-
-echo -n "   [>] Creating virtual environment..."
-python3 -m venv .venv &
-spinner $!
-echo -e " Done"
+if [ ! -d ".venv" ]; then
+    echo ""
+    echo -e "${BOLD}:: Setting up Sandbox...${NC}"
+    echo -n "    [>] Creating virtual environment..."
+    python3 -m venv .venv &
+    spinner $!
+    echo -e " Done"
+fi
 
 source .venv/bin/activate
 
-echo -n "   [>] Installing dependencies..."
+echo -n "    [>] Syncing dependencies..."
 pip install --upgrade pip > /dev/null 2>&1
-# Install all required libraries
 pip install textual networkx scipy numpy textual-image maturin aiosqlite > /dev/null 2>&1 &
 spinner $!
 echo -e " Done"
 echo ""
 
-# --- 4. Rust Compilation (Optional) ---
+# --- 4. Rust Compilation ---
 echo -e "${BOLD}:: Graphics Engine Setup...${NC}"
 set +e 
-
 if command -v cargo &> /dev/null; then
-    echo -n "   [>] Rust detected. Compiling HD Engine..."
-    
-    # UPDATED: Checking for 'rust_core' folder
+    echo -n "    [>] Rust detected. Compiling HD Engine..."
     if [ -d "rust_core" ]; then
         cd rust_core
         if maturin develop --release > ../build.log 2>&1; then
@@ -110,53 +128,15 @@ if command -v cargo &> /dev/null; then
             echo -e " Failed (Using Standard Mode)"
         fi
         cd ..
-    else
-        echo -e " Skipped (Source folder not found)"
     fi
 else
-    echo -e "   [!] Rust not found. Using Standard Mode."
+    echo -e "    [!] Rust not found. Using Standard Mode."
 fi
 set -e
 echo ""
 
 # --- 5. Shell Shortcuts ---
 echo -e "${BOLD}:: Finalizing...${NC}"
-
-SHELL_CONFIG=""
-case "$SHELL" in
-  */zsh)  SHELL_CONFIG="$HOME/.zshrc" ;;
-  */bash) 
-    if [ -f "$HOME/.bash_profile" ]; then SHELL_CONFIG="$HOME/.bash_profile"; else SHELL_CONFIG="$HOME/.bashrc"; fi 
-    ;;
-  */fish) SHELL_CONFIG="$HOME/.config/fish/config.fish" ;;
-  *)      SHELL_CONFIG="$HOME/.profile" ;;
-esac
-
-if [ -f "$SHELL_CONFIG" ]; then
-    # Clean old aliases
-    if [[ "$SHELL" != *"fish"* ]]; then
-        grep -v "alias synapxis=" "$SHELL_CONFIG" | grep -v "alias snx=" > "${SHELL_CONFIG}.tmp"
-        mv "${SHELL_CONFIG}.tmp" "$SHELL_CONFIG"
-
-        # Add new aliases
-        echo "" >> "$SHELL_CONFIG"
-        echo "# Synapxis App" >> "$SHELL_CONFIG"
-        echo "alias synapxis=\"$INSTALL_DIR/.venv/bin/python $INSTALL_DIR/$ENTRY_POINT\"" >> "$SHELL_CONFIG"
-        echo "alias snx=\"$INSTALL_DIR/.venv/bin/python $INSTALL_DIR/$ENTRY_POINT\"" >> "$SHELL_CONFIG"
-        echo -e "   [OK] Aliases added to ${ORANGE}$SHELL_CONFIG${NC}"
-    else
-        echo -e "   [!] Fish shell detected. Please add alias manually."
-    fi
-else
-    echo -e "   [!] Shell config not found. Add alias manually."
-fi
-
-# --- 6. Done ---
-echo ""
 echo -e "${ORANGE}===================================================${NC}"
-echo -e "${BOLD}         INSTALLATION COMPLETE${NC}"
+echo -e "${BOLD}         SYNAPXIS IS UP TO DATE${NC}"
 echo -e "${ORANGE}===================================================${NC}"
-echo ""
-echo -e "1. Restart terminal OR run: ${BOLD}source $SHELL_CONFIG${NC}"
-echo -e "2. Launch with: ${BOLD}${ORANGE}snx${NC}"
-echo ""
