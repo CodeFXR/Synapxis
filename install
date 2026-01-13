@@ -165,6 +165,9 @@ if [ -f "$SHELL_CONFIG" ]; then
         sed -i '/alias snx=/d' "$SHELL_CONFIG"
     fi
 
+    # 1. Run in subshell (parentheses) so we don't change user's PWD permanently
+    # 2. Set PYTHONPATH inline
+    # 3. Call python -m
     CMD_STR="(cd $INSTALL_DIR && PYTHONPATH=src $INSTALL_DIR/.venv/bin/python -m $ENTRY_MODULE)"
     
     echo "alias synapxis=\"$CMD_STR\"" >> "$SHELL_CONFIG"
@@ -176,7 +179,7 @@ else
 fi
 
 echo -e "${ORANGE}===================================================${NC}"
-echo -e "${BOLD}               SYNAPXIS IS READY${NC}"
+echo -e "${BOLD}         SYNAPXIS IS READY${NC}"
 echo -e "${ORANGE}===================================================${NC}"
 echo -e "1. Restart your terminal."
 echo -e "2. Launch with: ${BOLD}${ORANGE}snx${NC}"
