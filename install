@@ -3,7 +3,6 @@
 # --- 0. Self-Update Logic ---
 if [ -d "$HOME/.synapxis/.git" ]; then
     cd "$HOME/.synapxis"
-    # Fetch latest metadata
     git fetch --quiet
     
     LOCAL=$(git rev-parse HEAD)
@@ -13,7 +12,7 @@ if [ -d "$HOME/.synapxis/.git" ]; then
         echo -e "\033[0;33m\033[1m:: Update Found! Syncing with GitHub...\033[0m"
         git pull --quiet
         echo ":: Update applied. Restarting script..."
-        exec "$0" "$@" # Re-runs the script with original arguments
+        exec "$0" "$@" 
     fi
 fi
 
@@ -84,7 +83,6 @@ echo -e "    [OK] System tools ready."
 echo ""
 
 # --- 2. Download ---
-# If the directory doesn't exist, clone it.
 if [ ! -d "$INSTALL_DIR" ]; then
     echo -e "${BOLD}:: Downloading Synapxis...${NC}"
     echo -n "    [>] Cloning repository..."
@@ -138,7 +136,6 @@ echo ""
 # --- 5. Shell Shortcuts ---
 echo -e "${BOLD}:: Finalizing...${NC}"
 
-# Define the full path for the alias
 ALPHANUM_PATH="$INSTALL_DIR/$ENTRY_POINT"
 
 case "$SHELL" in
@@ -151,18 +148,23 @@ case "$SHELL" in
 esac
 
 if [ -f "$SHELL_CONFIG" ]; then
-    # Remove old versions
     sed -i '/alias synapxis=/d' "$SHELL_CONFIG"
     sed -i '/alias snx=/d' "$SHELL_CONFIG"
 
-    # Add new alias with CD logic to ensure imports work
-    echo "alias synapxis=\"cd $INSTALL_DIR && $INSTALL_DIR/.venv/bin/python $ALPHANUM_PATH\"" >> "$SHELL_CONFIG"
-    echo "alias snx=\"cd $INSTALL_DIR && $INSTALL_DIR/.venv/bin/python $ALPHANUM_PATH\"" >> "$SHELL_CONFIG"
+    CMD_STR="cd $INSTALL_DIR && export PYTHONPATH=\$PYTHONPATH:$INSTALL_DIR/src && $INSTALL_DIR/.venv/bin/python $ALPHANUM_PATH"
+    
+    echo "alias synapxis=\"$CMD_STR\"" >> "$SHELL_CONFIG"
+    echo "alias snx=\"$CMD_STR\"" >> "$SHELL_CONFIG"
     
     echo -e "    [OK] Aliases added to ${ORANGE}$SHELL_CONFIG${NC}"
+    
+    # Reload the config for the current session
+    source "$SHELL_CONFIG"
 else
     echo -e "    [!] Shell config not found. Add alias manually."
 fi
+
 echo -e "${ORANGE}===================================================${NC}"
-echo -e "${BOLD}         SYNAPXIS IS UP TO DATE${NC}"
+echo -e "${BOLD}         SYNAPXIS IS READY${NC}"
 echo -e "${ORANGE}===================================================${NC}"
+echo -e "Launch now with: ${BOLD}${ORANGE}snx${NC}"
