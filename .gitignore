@@ -1,0 +1,40 @@
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.dylib
+
+.venv/
+venv/
+env/
+.env
+
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.hypothesis/
+
+build/
+dist/
+*.egg-info/
+rust_core/target/
+*.whl
+
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+tests/_bin/
+
+# Local ephemeral artefacts (never intentional). The repo does NOT
+# ship a lockfile: dependency resolution happens at install time
+# from PyPI, against constraint ranges pinned in `pyproject.toml`.
+# If a developer regenerates a lock locally for debugging, it stays
+# out of the tree.
+requirements*.lock.txt

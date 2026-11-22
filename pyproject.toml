@@ -1,0 +1,87 @@
+[build-system]
+requires = ["maturin>=1.8,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "synapxis"
+version = "1.0.0"
+description = "A terminal-based knowledge graph with Rust-powered visualization."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "CodeFXR" }]
+keywords = ["knowledge-graph", "tui", "notes", "wikilinks", "terminal"]
+classifiers = [
+    "Environment :: Console",
+    "Environment :: Console :: Curses",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Utilities",
+    "Typing :: Typed",
+]
+dependencies = [
+    "textual>=0.79,<1.0",
+    "networkx>=3.2,<4.0",
+    "aiosqlite>=0.19.0",
+    "numpy>=1.24.0",
+]
+
+[project.optional-dependencies]
+images = ["textual-image>=0.7,<0.8"]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "hypothesis>=6.100",
+    "pip-audit>=2.7",
+    "ruff>=0.6",
+]
+
+[project.urls]
+Homepage = "https://github.com/CodeFXR/Synapxis"
+
+[project.scripts]
+synapxis = "synapxis.cli:main"
+
+[tool.maturin]
+manifest-path = "rust_core/Cargo.toml"
+python-source = "src"
+module-name = "synapxis.synapxis"
+features = ["pyo3/extension-module"]
+include = ["src/synapxis/ui/screens/styles.tcss"]
+
+[tool.synapxis]
+# Dependency policy:
+#
+#   * No lockfile ships in the repository. Constraint ranges pinned
+#     in [project.dependencies] keep pip's resolver safe; each
+#     `pip install` re-resolves against PyPI from scratch.
+#   * Upgrades are explicit `python -m pip install --upgrade synapxis`
+#     operations. The `synapxis update` command prints this guidance
+#     but does not mutate the environment or a Git checkout.
+#   * Bumping a project dependency is a single-line change to
+#     [project.dependencies] in this file. No lockfile refresh,
+#     no maintainer babysitting.
+constraint_update_policy = "Bump dependency ranges here; users refresh with pip install --upgrade synapxis."
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E501"]
+

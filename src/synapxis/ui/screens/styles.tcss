@@ -1,0 +1,302 @@
+Screen { background: #1a1b26; color: #c0caf5; }
+
+Toast {
+    background: #1f2335;
+    color: #c0caf5;
+    border-left: wide orange;
+    padding: 1 2;
+}
+ToastTitle { color: orange; text-style: bold; }
+
+ScrollBarThumb { background: orange; }
+ScrollBarThumb:hover { background: #ffb700; }
+
+Input {
+    background: #1f2335;
+    border: none;
+    color: #c0caf5;
+}
+Input:focus {
+    border: none;
+    color: orange;
+}
+
+ExportModal { align: center middle; background: rgba(0,0,0,0.6); }
+    ExportModal #export-box {
+        width: 40;
+        height: auto;
+        background: #1f2335;
+        border: tall orange;
+        padding: 0 1;
+    }
+    ExportModal .header {
+        width: 100%;
+        color: orange;
+        text-style: bold;
+        text-align: center;
+        margin-bottom: 1;
+        border-bottom: solid #16161e;
+    }
+    ExportModal Button {
+        width: 100%;
+        margin-bottom: 1;
+        background: #16161e;
+        color: #c0caf5;
+        border: none;
+        text-align: center;
+    }
+    ExportModal Button:focus,
+ExportModal Button:hover {
+        background: orange;
+        color: black;
+        text-style: bold;
+    }
+
+SuggestionModal { align: center middle; background: rgba(0,0,0,0.4); }
+
+    SuggestionModal #box {
+        width: 45;
+        height: auto;
+        max-height: 22;
+        background: #1f2335;
+        border: none;
+        padding: 0;
+    }
+
+    SuggestionModal .header {
+        width: 100%;
+        background: orange;
+        color: #1a1b26;
+        text-style: bold;
+        text-align: center;
+    }
+
+    SuggestionModal #modal-search {
+        height: 1;
+        min-height: 1;
+        border: none;
+        background: #16161e;
+        color: orange;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        border-bottom: solid #1f2335;
+    }
+    SuggestionModal #modal-search:focus { border: none; }
+
+    SuggestionModal ListView {
+        height: auto;
+        max-height: 15;
+        border: none;
+        background: #1f2335;
+    }
+
+
+    SuggestionModal SuggestionListItem {
+        padding: 1 2;
+        background: transparent;
+        height: auto;
+    }
+
+    SuggestionModal SuggestionListItem:hover {
+        background: #24283b;
+    }
+
+
+    SuggestionModal SuggestionListItem Label {
+    width: auto;
+    padding: 0;
+    background: transparent;
+    color: #565f89;
+    content-align: left middle;
+
+    }
+
+    SuggestionModal SuggestionListItem:hover Label,
+SuggestionModal SuggestionListItem.-highlight Label {
+        color: orange;
+        text-style: bold;
+    }
+
+SettingsScreen { align: center middle; background: rgba(26, 27, 38, 0.8); }
+    SettingsScreen #settings-window { width: 50; height: auto; max-height: 80%; background: #1f2335; border: tall orange; padding: 0 1; }
+    SettingsScreen #settings-header { width: 100%; text-align: center; color: orange; text-style: bold; padding: 1 0; border-bottom: solid #16161e; }
+    SettingsScreen #tags-scroll { height: auto; max-height: 1fr; overflow-y: auto; padding-top: 1; scrollbar-gutter: stable; }
+    SettingsScreen .tag-row { height: 3; width: 100%; align: center middle; margin-bottom: 1; }
+    SettingsScreen .tag-label { width: 1fr; color: #c0caf5; text-style: bold; content-align: left middle; }
+    SettingsScreen Select { width: 20; height: auto; }
+    SettingsScreen SelectCurrent { border: none; background: #16161e; color: orange; }
+    SettingsScreen SelectOverlay { background: #1f2335; border: tall orange; }
+    SettingsScreen #no-tags { width: 100%; text-align: center; color: #565f89; margin: 2 0; text-style: italic; }
+    SettingsScreen #settings-footer { width: 100%; text-align: center; color: #565f89; padding: 1 0; text-style: italic; border-top: solid #16161e; }
+
+ConfirmModal { align: center middle; background: rgba(0,0,0,0.6); }
+    ConfirmModal #confirm-box {
+        width: 56; height: auto; background: #1f2335; border: tall orange; padding: 1 2;
+    }
+    ConfirmModal #confirm-message { width: 100%; color: #c0caf5; text-align: center; padding: 1 0 2 0; }
+    ConfirmModal .button-row { width: 100%; height: auto; align: center middle; }
+    ConfirmModal .button-row Button { width: 1fr; margin: 0 1; }
+    ConfirmModal Button.confirm { background: #5a1f1f; color: white; }
+    ConfirmModal Button.confirm:focus,
+ConfirmModal Button.confirm:hover { background: #b91c1c; color: white; text-style: bold; }
+
+NewNoteModal { align: center middle; background: rgba(0,0,0,0.6); }
+    NewNoteModal #new-note-box {
+        width: 56; height: auto; background: #1f2335; border: tall orange; padding: 1 2;
+    }
+    NewNoteModal #new-note-message { width: 100%; color: orange; text-style: bold; text-align: center; padding-bottom: 1; }
+    NewNoteModal #new-note-input { width: 100%; }
+    NewNoteModal #new-note-error { width: 100%; color: #ff5555; text-align: center; padding-top: 1; text-style: italic; }
+    NewNoteModal .button-row { width: 100%; height: auto; align: center middle; padding-top: 1; }
+    NewNoteModal .button-row Button { width: 1fr; margin: 0 1; }
+
+TrashScreen { background: #1a1b26; }
+    TrashScreen #trash-layout { width: 100%; height: 100%; layout: vertical; }
+    TrashScreen #trash-header {
+        width: 100%; height: 3; background: #1f2335; color: orange;
+        text-style: bold; text-align: center; padding: 1 0; border-bottom: solid #16161e;
+    }
+    TrashScreen #trash-list { height: 1fr; border: none; background: transparent; }
+    TrashScreen #trash-list ListItem { padding: 1 2; border: none; }
+    TrashScreen .trash-label { color: #565f89; }
+    TrashScreen ListItem.--highlighted .trash-label { color: orange; text-style: bold; }
+    TrashScreen #trash-empty { width: 100%; content-align: center middle; color: #565f89; padding: 4 0; text-style: italic; }
+    TrashScreen #trash-footer { dock: bottom; width: 100%; height: 3; background: black; color: #565f89; content-align: center middle; }
+
+BackupModal { align: center middle; background: rgba(0,0,0,0.6); }
+    BackupModal #backup-box { width: 60; height: auto; background: #1f2335; border: tall orange; padding: 1 2; }
+    BackupModal #backup-message { width: 100%; color: orange; text-style: bold; text-align: center; padding-bottom: 1; }
+    BackupModal #backup-path { width: 100%; }
+    BackupModal .button-row { width: 100%; height: auto; align: center middle; padding-top: 1; }
+    BackupModal .button-row Button { width: 1fr; margin: 0 1; }
+    BackupModal #backup-status { width: 100%; color: #7fbf7f; text-align: center; padding-top: 1; text-style: italic; }
+
+MainMenuScreen { align: center middle; background: #1a1b26; overflow: hidden; }
+    MainMenuScreen #menu-container { width: 100%; height: 100%; align: center middle; }
+    MainMenuScreen #logo-container { width: 100%; height: 35%; align: center middle; margin-bottom: 0; }
+    MainMenuScreen #logo-image { height: 12; width: 30; }
+    MainMenuScreen #logo-ascii { width: 100%; text-align: center; color: orange; }
+    MainMenuScreen .menu-title { width: 100%; text-align: center; color: #565f89; text-style: bold; margin: 1 0; }
+    MainMenuScreen #menu-buttons { width: 100%; height: auto; align: center middle; }
+    MainMenuScreen #menu-buttons Button { width: 30; height: 3; margin: 0; background: transparent; color: #c0caf5; border: none; text-align: center; }
+    MainMenuScreen #menu-buttons Button:focus,
+MainMenuScreen #menu-buttons Button:hover { background: transparent; color: orange; text-style: bold; }
+    MainMenuScreen .nav-help { dock: bottom; width: 100%; text-align: center; color: #565f89; padding-bottom: 1; text-style: italic; }
+
+NoteViewScreen { background: #1a1b26; }
+
+    NoteViewScreen #main-layout { width: 100%; height: 100%; layout: horizontal; }
+
+    NoteViewScreen #sidebar { width: 21%; height: 100%; background: #16161e; border-right: solid #24283b; }
+
+    NoteViewScreen #sidebar-header-container {
+        width: 100%; height: 15%; padding-top: 1; padding-bottom: 1;
+        align: center middle; background: #1f2335;
+    }
+    NoteViewScreen #sidebar-icon { height: 2; width: auto; }
+    NoteViewScreen #sidebar-label { color: orange; text-style: bold; }
+
+    NoteViewScreen #search {
+        height: 1; border: none; background: #1f2335; padding: 0; margin: 0;
+        text-align: left; color: #c0caf5; border-bottom: solid #16161e;
+    }
+    NoteViewScreen #search:focus { border: none; }
+
+    NoteViewScreen #note-list { height: 1fr; border: none; background: transparent; }
+    NoteViewScreen #note-list ListItem { background: transparent; padding: 1 2; border: none; }
+
+    NoteViewScreen ListItem,
+NoteViewScreen ListItem:hover,
+NoteViewScreen ListItem.--highlighted,
+NoteViewScreen ListItem.-active,
+NoteViewScreen ListItem:focus {
+        background: transparent !important;
+        border: none !important;
+    }
+
+    NoteViewScreen .note-label { color: #565f89; }
+
+    NoteViewScreen ListItem.--highlighted .note-label,
+NoteViewScreen #note-list ListItem.-active .note-label,
+NoteViewScreen ListItem:hover .note-label {
+        color: orange !important;
+        text-style: bold;
+    }
+
+    NoteViewScreen #btn-new {
+        dock: bottom;
+        width: 100%;
+        height: 3;
+        background: transparent;
+        color: #565f89;
+        border: none;
+        content-align: center middle;
+    }
+    NoteViewScreen #btn-new:hover { color: orange; background: transparent; }
+    NoteViewScreen #btn-new:focus { color: orange; background: transparent; border: none; }
+
+    NoteViewScreen #btn-trash {
+        dock: bottom;
+        width: 100%;
+        height: 3;
+        background: transparent;
+        color: #565f89;
+        border: none;
+        content-align: center middle;
+    }
+    NoteViewScreen #btn-trash:hover { color: orange; background: transparent; }
+    NoteViewScreen #btn-trash:focus { color: orange; background: transparent; border: none; }
+
+    NoteViewScreen #content-pane { width: 75%; height: 100%; background: #1a1b26; padding: 2 4; align: center middle; }
+    NoteViewScreen #empty-state { content-align: center middle; color: #565f89; text-style: italic; }
+    NoteViewScreen #note-title { dock: top; height: 3; border: none; background: transparent; text-style: bold; text-align: center; color: orange; }
+    NoteViewScreen #note-content { height: 1fr; border: none; background: transparent; padding: 1 0; }
+    NoteViewScreen TextArea .text-area--cursor-line { background: transparent; }
+    NoteViewScreen .hidden { display: none; }
+
+    NoteViewScreen #custom-footer { dock: bottom; width: 100%; height: 3; content-align: center middle; color: #565f89; background: black; opacity: 0.8; }
+
+GraphViewScreen { background: #1a1b26; layers: base overlay; }
+
+    GraphViewScreen #graph-header {
+        dock: top;
+        width: 100%;
+        height: 4;
+        padding: 1;
+        align: center middle;
+        background: #1f2335;
+    }
+    GraphViewScreen #header-logo { height: 2; width: auto; }
+    GraphViewScreen #header-label { color: orange; text-style: bold; }
+
+    GraphViewScreen #search-container {
+        layer: overlay;
+        dock: top;
+        width: 100%;
+        height: auto;
+        align: center top;
+        margin-top: 4;
+        display: none;
+    }
+    GraphViewScreen #search-container.-visible { display: block; }
+
+    GraphViewScreen #graph-search {
+        width: 40;
+        height: 1;
+        min-height: 1;
+        border: none;
+        background: #1f2335;
+        color: #c0caf5;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+    }
+
+    GraphViewScreen #graph-info {
+        dock: bottom;
+        height: 3;
+        background: black;
+        color: #565f89;
+        content-align: center middle;
+    }

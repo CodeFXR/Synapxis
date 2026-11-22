@@ -1,0 +1,16 @@
+[package]
+name = "synapxis"
+version = "1.0.0"
+edition = "2021"
+rust-version = "1.70"
+
+[lib]
+name = "synapxis"
+# `cdylib` is what Maturin bundles into the Python wheel.
+# `rlib` is what the Rust integration test (`cargo test`) links
+# against. The same source compiles both targets.
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+pyo3 = { version = "0.25", features = ["extension-module"] }
+unicode-width = "0.1"
